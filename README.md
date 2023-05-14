@@ -26,3 +26,7 @@ emails_testing.txt example
 	boobs@look.ca
 	cockslol@accswave.ca
 	penisbutt@ctces.ca
+
+anticaptcha.txt example
+
+	665cc284d30gf8f44b5f726dk587979g
