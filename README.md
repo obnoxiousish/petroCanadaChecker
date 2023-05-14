@@ -27,6 +27,6 @@ emails_testing.txt example
 	cockslol@accswave.ca
 	penisbutt@ctces.ca
 
-anticaptcha.txt example
+load api key into anticaptcha.txt here is example
 
 	665cc284d30gf8f44b5f726dk587979g
