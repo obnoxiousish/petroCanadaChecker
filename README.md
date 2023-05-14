@@ -11,3 +11,7 @@ Emails are loaded from "emails_testing.txt" in the same folder
 change to how many threads you desire
 
 	self.threads = 15
+
+stats
+
+	WARNING:root:RealLogins=3:ValidAttempts=17:WrongCaptchas=60
