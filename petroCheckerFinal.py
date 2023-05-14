@@ -32,7 +32,6 @@ class petro:
         else:
             self.passwords = [password]
                
-
         for password in self.passwords:
             while True:
                 try:
@@ -212,7 +211,7 @@ class data:
         self.validAttempts = 0
         self.realLogins = 0
         self.wrongCaptchas = 0
-        self.threads = 25
+        self.threads = 50
 
 
 class pws:
