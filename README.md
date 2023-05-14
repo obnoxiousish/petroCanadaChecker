@@ -21,12 +21,14 @@ proxies.txt example
 	socks5://127.0.0.1:9050
 	http://uruser:xdxdpassword@googleProxies.com:31337
 	
-emails_testing.txt example
+emails_testing.txt example, if no pw looks up email using pysnus.py
 
-	boobs@look.ca
+	boobs@look.ca:Password123!
 	cockslol@accswave.ca
 	penisbutt@ctces.ca
 
 load api key into anticaptcha.txt here is example
 
 	665cc284d30gf8f44b5f726dk587979g
+
+pysnus.py uses a http session for my account on snusbase, itll probably expire at some point, so if u want to use it buy ur own sub and replace the headers+cookies
