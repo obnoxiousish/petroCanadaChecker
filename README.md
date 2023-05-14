@@ -15,3 +15,14 @@ change to how many threads you desire
 stats
 
 	WARNING:root:RealLogins=3:ValidAttempts=17:WrongCaptchas=60
+
+proxies.txt example
+
+	socks5://127.0.0.1:9050
+	http://uruser:xdxdpassword@googleProxies.com:31337
+	
+emails_testing.txt example
+
+	boobs@look.ca
+	cockslol@accswave.ca
+	penisbutt@ctces.ca
